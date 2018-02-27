@@ -3,6 +3,7 @@ package com.ecconia.rsisland.framework.cofami;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -10,6 +11,13 @@ import org.bukkit.entity.Player;
 import com.ecconia.rsisland.framework.cofami.exceptions.NoPermissionException;
 import com.ecconia.rsisland.framework.cofami.exceptions.WrongTypeException;
 
+/**
+ * A subcommand can be used as main-command in a {@link CommandHandler}, but also as actual subcommand in a {@link GroupSubcommand}.
+ * 
+ * The permission (if enabled) is the name(label) of the command.
+ * 
+ * @author ecconia
+ */
 public abstract class Subcommand
 {
 	protected Feedback f;
@@ -21,8 +29,14 @@ public abstract class Subcommand
 	private boolean onlyConsole;
 	private boolean onlyPlayer;
 
+	/**
+	 * 
+	 * @param name - The name/label of this command {@code /<name>}
+	 */
 	public Subcommand(String name)
 	{
+		Validate.notNull(name);
+		
 		this.name = name;
 	}
 
@@ -31,16 +45,38 @@ public abstract class Subcommand
 		return name;
 	}
 
+	/**
+	 * Internal method.<br>
+	 * Permission string set for the main command<br>
+	 * 
+	 * @return The permission if one, else permission1;permission2
+	 */
 	public String getPermissions()
 	{
 		return permission;
 	}
 	
+	/**
+	 * Will only allow this command to be used by Players.<br>
+	 * Prevents tabcompleting of this command for other CommandSenders.<br>
+	 * <br>
+	 * To prevent the execution call {@code checkType(sender)} in exec<br>
+	 * <br>
+	 * If used together with onlyConsole(), both are allowed.<br>
+	 */
 	protected void onlyPlayer()
 	{
 		onlyPlayer = true;
 	}
 	
+	/**
+	 * Will only allow this command to be used by Console.<br>
+	 * Prevents tabcompleting of this command for other CommandSenders.<br>
+	 * <br>
+	 * To prevent the execution call {@code checkType(sender)} in exec<br>
+	 * <br>
+	 * If used together with onlyPlayer(), both are allowed.<br>
+	 */
 	protected void onlyConsole()
 	{
 		onlyConsole = true;
@@ -48,6 +84,14 @@ public abstract class Subcommand
 
 	//#########################################################################
 
+	/**
+	 * Overwrite this method to remove/add permissions to this subcommand.<br>
+	 * 
+	 * Default for {@link Subcommand}s is true - Permission will be set.<br>
+	 * Default for {@link GroupSubcommand}s is false - Permission will not be set.<br>
+	 * 
+	 * @return boolean - if permissions should be set and onlyPlayer/Console be used in tabcomplete.
+	 */
 	protected boolean hasCallRequirements()
 	{
 		return true;
@@ -81,6 +125,12 @@ public abstract class Subcommand
 		}
 	}
 
+	/**
+	 * Gets called on execution of this command.
+	 * 
+	 * @param sender
+	 * @param arguments
+	 */
 	public abstract void exec(CommandSender sender, String[] arguments);
 
 	public List<String> onTabComplete(CommandSender sender, String[] args)

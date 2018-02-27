@@ -1,17 +1,39 @@
 package com.ecconia.rsisland.framework.cofami;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+/**
+ * Sends a formatted message to a ConsoleSender.
+ * The format is: Prefix + normal message. Arguments in a different color.
+
+ * @author Ecconia
+ */
 public class Feedback
 {
 	private final String prefix;
 	
+	/**
+	 * Create the Feedback class, the prefix has to be set, it will be placed before each feedback.
+	 * 
+	 * @param prefix - Plugin prefix, will be used in each feedback.
+	 */
 	public Feedback(String prefix)
 	{
+		Validate.notNull(prefix);
+		
 		this.prefix = prefix;
 	}
 	
+	/**
+	 * Send formatted normal message to CommandSender.
+	 * Normal messages - Color grey, Highlight color gold.
+	 * 
+	 * @param sender - Receiver of the message.
+	 * @param message - Message to be formatted.
+	 * @param args - Arguments, '%v' in the message will be replaced with these.
+	 */
 	public void n(CommandSender sender, String message, Object... args)
 	{
 		if(sender != null)
@@ -20,6 +42,14 @@ public class Feedback
 		}
 	}
 	
+	/**
+	 * Send formatted error message to CommandSender.
+	 * Error messages - Color red, Highlight color violet.
+	 * 
+	 * @param sender - Receiver of the message.
+	 * @param message - Message to be formatted.
+	 * @param args - Arguments, '%v' in the message will be replaced with these.
+	 */
 	public void e(CommandSender sender, String message, Object... args)
 	{
 		if(sender != null)
@@ -28,11 +58,25 @@ public class Feedback
 		}
 	}
 	
+	/**
+	 * Formats a normal message.
+	 * Normal messages - Color grey, Highlight color gold.
+	 * 
+	 * @param message - Message to be formatted.
+	 * @param args - Arguments, '%v' in the message will be replaced with these.
+	 */
 	public String n(String message, Object... args)
 	{
 		return format(message, ChatColor.GRAY, ChatColor.GOLD, args);
 	}
 	
+	/**
+	 * Formats an error message.
+	 * Error messages - Color red, Highlight color violet.
+	 * 
+	 * @param message - Message to be formatted.
+	 * @param args - Arguments, '%v' in the message will be replaced with these.
+	 */
 	public String e(String message, Object... args)
 	{
 		return format(message, ChatColor.RED, ChatColor.DARK_PURPLE, args);

@@ -2,6 +2,7 @@ package com.ecconia.rsisland.framework.cofami;
 
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,13 +15,31 @@ import com.ecconia.rsisland.framework.cofami.exceptions.CommandException;
 import com.ecconia.rsisland.framework.cofami.exceptions.NoPermissionException;
 import com.ecconia.rsisland.framework.cofami.exceptions.WrongTypeException;
 
+/**
+ * The CommandHandler connects the BukkitAPI with a {@link Subcommand}.
+ * It registers the command and its permissions, including subcommands.
+ * 
+ * @author Ecconia
+ */
 public class CommandHandler implements CommandExecutor, TabCompleter
 {
 	private final Subcommand mainCommand;
 	private final Feedback f;
 
+	/**
+	 * The CommandHandler connects the BukkitAPI with the Subcommand provided as parameter.
+	 * It also registers the command and sets its permissions.
+	 * 
+	 * @param plugin - The plugin, used to get the plugin command. 
+	 * @param f - The formatting class {@link Feedback}.
+	 * @param mainCommand - The main {@link Subcommand}.
+	 */
 	public CommandHandler(JavaPlugin plugin, Feedback f, Subcommand mainCommand)
 	{
+		Validate.notNull(mainCommand);
+		Validate.notNull(f);
+		Validate.notNull(plugin);
+		
 		this.mainCommand = mainCommand;
 		this.f = f;
 

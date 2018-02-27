@@ -12,6 +12,13 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.CommandSender;
 
+/**
+ * Create a {@link Subcommand} which can hold other Subcommands.<br>
+ * It will route the execution to the registered subcommand in charge.<br>
+ * It sends the available subcommands to the sender on tab complete.<br>
+ * <br>
+ * Can be overwritten, if itself should have some custom execution.<br>
+ */
 public class GroupSubcommand extends Subcommand
 {
 	private final Map<String, Subcommand> subcommands;

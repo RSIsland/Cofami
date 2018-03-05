@@ -125,13 +125,10 @@ public class GroupSubcommand extends Subcommand
 			return;
 		}
 		
-		String typed = arguments[0];
-		
-		Subcommand subcommand = subcommands.get(typed);
+		Subcommand subcommand = subcommands.get(arguments[0]);
 		if(subcommand == null)
 		{
-			//TODO: custom?
-			f.e(sender, "No such subcommand: %v", typed);
+			noMatch(sender, arguments);
 			return;
 		}
 		
@@ -140,8 +137,14 @@ public class GroupSubcommand extends Subcommand
 	
 	protected void exec(CommandSender sender)
 	{
-		//TODO custom?
+		//TODO custom Message?
 		f.n(sender, "Use tabcomplete to get a list of subcomands.");
+	}
+	
+	protected void noMatch(CommandSender sender, String[] arguments)
+	{
+		//TODO: custom Message?
+		f.e(sender, "No such subcommand: %v", arguments[0]);
 	}
 	
 	@Override

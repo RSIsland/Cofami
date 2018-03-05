@@ -70,7 +70,7 @@ public class GroupSubcommand extends Subcommand
 	{
 		if(hasCallRequirements())
 		{
-			return sender.hasPermission(getPermissions());
+			return sender.hasPermission(super.getPermissions());
 		}
 		else
 		{

@@ -102,4 +102,17 @@ public class Feedback
 		
 		return prefix + color + formatted;
 	}
+	
+	/**
+	 * Create a simple prefix format: "[Pluginname] ".
+	 * 
+	 * @param bracketColor - The color of the backets
+	 * @param textColor - The color of the pluginname
+	 * @param name - The pluginname
+	 * @return string - A prefix which can be used for the Feedback object 
+	 */
+	public static String simplePrefix(ChatColor bracketColor, ChatColor textColor, String name)
+	{
+		return bracketColor + "[" + textColor + name + bracketColor + "] ";
+	}
 }

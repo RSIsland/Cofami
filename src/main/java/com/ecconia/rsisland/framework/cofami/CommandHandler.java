@@ -83,4 +83,19 @@ public class CommandHandler implements CommandExecutor, TabCompleter
 	{
 		return mainCommand.onTabComplete(sender, arguments);
 	}
+	
+	/**
+	 * Register many commands with one method
+	 * 
+	 * @param plugin - Plugin which is used to register the commands
+	 * @param f - Feedback object used by the commands
+	 * @param subcommands - The commands to register
+	 */
+	public static void register(JavaPlugin plugin, Feedback f, Subcommand... subcommands)
+	{
+		for(Subcommand subcommand : subcommands)
+		{
+			new CommandHandler(plugin, f, subcommand);
+		}
+	}
 }

@@ -14,6 +14,12 @@ public class Feedback
 {
 	private final String prefix;
 	
+	private ChatColor normalPrimary = ChatColor.GRAY;
+	private ChatColor normalSecondary = ChatColor.GOLD;
+	
+	private ChatColor errorPrimary = ChatColor.RED;
+	private ChatColor errorSecondary = ChatColor.DARK_PURPLE;
+	
 	/**
 	 * Create the Feedback class, the prefix has to be set, it will be placed before each feedback.
 	 * 
@@ -67,7 +73,7 @@ public class Feedback
 	 */
 	public String n(String message, Object... args)
 	{
-		return format(message, ChatColor.GRAY, ChatColor.GOLD, args);
+		return format(message, normalPrimary, normalSecondary, args);
 	}
 	
 	/**
@@ -79,7 +85,7 @@ public class Feedback
 	 */
 	public String e(String message, Object... args)
 	{
-		return format(message, ChatColor.RED, ChatColor.DARK_PURPLE, args);
+		return format(message, errorPrimary, errorSecondary, args);
 	}
 	
 	private String format(String message, ChatColor color, ChatColor highlighColor, Object... args)
@@ -101,6 +107,30 @@ public class Feedback
 		}
 		
 		return prefix + color + formatted;
+	}
+	
+	/**
+	 * Change the colors which appear in chat for normal feedback.
+	 * 
+	 * @param primary - The text color of the feedback.
+	 * @param secondary - The highlight color.
+	 */
+	public void setNormalColors(ChatColor primary, ChatColor secondary)
+	{
+		normalPrimary = primary;
+		normalSecondary = secondary;
+	}
+	
+	/**
+	 * Change the colors which appear in chat for error feedback.
+	 * 
+	 * @param primary - The text color of the feedback.
+	 * @param secondary - The highlight color.
+	 */
+	public void setErrorColors(ChatColor primary, ChatColor secondary)
+	{
+		errorPrimary = primary;
+		errorSecondary = secondary;
 	}
 	
 	/**

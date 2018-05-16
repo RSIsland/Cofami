@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import com.ecconia.rsisland.framework.cofami.exceptions.CommandException;
 import com.ecconia.rsisland.framework.cofami.exceptions.NoPermissionException;
 import com.ecconia.rsisland.framework.cofami.exceptions.WrongTypeException;
 
@@ -177,5 +178,17 @@ public abstract class Subcommand
 		{
 			throw new NoPermissionException(path);
 		}
+	}
+	
+	/**
+	 * Ease of use, for the ones who like this method from other languages ;)
+	 * Ends the command with an error message.
+	 * 
+	 * @param message Error message
+	 * @param args Arguments to be inserted/appended to the error message. Will replace '%v'.
+	 */
+	protected void die(String message, Object... args)
+	{
+		throw new CommandException(f.e(message, args));
 	}
 }

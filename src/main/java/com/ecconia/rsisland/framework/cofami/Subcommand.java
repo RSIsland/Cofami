@@ -189,6 +189,6 @@ public abstract class Subcommand
 	 */
 	protected void die(String message, Object... args)
 	{
-		throw new CommandException(f.e(message, args));
+		throw new CommandException(message, args);
 	}
 }

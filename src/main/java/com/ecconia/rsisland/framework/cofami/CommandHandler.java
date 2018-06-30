@@ -72,7 +72,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter
 		}
 		catch(CommandException e)
 		{
-			sender.sendMessage(e.getMessage());
+			f.e(sender, e.getMessage(), e.getArgs());
 		}
 
 		return true;

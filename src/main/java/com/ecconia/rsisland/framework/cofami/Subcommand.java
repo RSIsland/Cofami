@@ -132,9 +132,9 @@ public abstract class Subcommand
 	 * @param sender
 	 * @param arguments
 	 */
-	public abstract void exec(CommandSender sender, String[] arguments);
 
-	public List<String> onTabComplete(CommandSender sender, String[] args)
+	public abstract void exec(CommandSender sender, final String[] arguments);
+	public List<String> onTabComplete(CommandSender sender, final String[] args)
 	{
 		return Collections.emptyList();
 	}

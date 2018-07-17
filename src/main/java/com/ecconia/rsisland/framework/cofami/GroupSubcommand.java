@@ -117,7 +117,7 @@ public class GroupSubcommand extends Subcommand
 	}
 
 	@Override
-	public void exec(CommandSender sender, String[] arguments)
+	public void exec(CommandSender sender, final String[] arguments)
 	{
 		if(arguments.length == 0)
 		{
@@ -141,14 +141,14 @@ public class GroupSubcommand extends Subcommand
 		f.n(sender, "Use tabcomplete to get a list of subcomands.");
 	}
 	
-	protected void noMatch(CommandSender sender, String[] arguments)
+	protected void noMatch(CommandSender sender, final String[] arguments)
 	{
 		//TODO: custom Message?
 		f.e(sender, "No such subcommand: %v", arguments[0]);
 	}
 	
 	@Override
-	public List<String> onTabComplete(CommandSender sender, String[] arguments)
+	public List<String> onTabComplete(CommandSender sender, final String[] arguments)
 	{
 		if(arguments.length == 1)
 		{

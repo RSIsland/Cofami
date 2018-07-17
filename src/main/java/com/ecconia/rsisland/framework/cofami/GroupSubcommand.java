@@ -150,6 +150,27 @@ public class GroupSubcommand extends Subcommand
 	@Override
 	public List<String> onTabComplete(CommandSender sender, final String[] arguments)
 	{
+		if(arguments.length > 1)
+		{
+			Subcommand subCommand = subcommands.get(arguments[0]);
+			
+			if(subCommand != null)
+			{
+				if(subCommand.hasPermission(sender) && subCommand.isType(sender))
+				{
+					return subCommand.onTabComplete(sender, Arrays.copyOfRange(arguments, 1, arguments.length));
+				}
+				
+				//No permissions for this subcommand -> no completions.
+				return Collections.emptyList();
+			}
+		}
+		
+		return onTabCompleteNoMatch(sender, arguments);
+	}
+	
+	protected List<String> onTabCompleteNoMatch(CommandSender sender, final String[] arguments)
+	{
 		if(arguments.length == 1)
 		{
 			String typed = arguments[0];
@@ -161,15 +182,6 @@ public class GroupSubcommand extends Subcommand
 			}).filter(subcommandName -> {
 				return StringUtils.startsWithIgnoreCase(subcommandName, typed);
 			}).collect(Collectors.toList());
-		}
-		else
-		{
-			String typed = arguments[0];
-			Subcommand subCommand = subcommands.get(typed);
-			if(subCommand != null && subCommand.hasPermission(sender) && subCommand.isType(sender))
-			{
-				return subCommand.onTabComplete(sender, Arrays.copyOfRange(arguments, 1, arguments.length));
-			}
 		}
 		
 		return Collections.emptyList();

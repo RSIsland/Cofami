@@ -25,7 +25,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter
 {
 	private final Subcommand mainCommand;
 	private final Feedback f;
-
+	
 	/**
 	 * The CommandHandler connects the BukkitAPI with the Subcommand provided as parameter.
 	 * It also registers the command and sets its permissions.
@@ -42,17 +42,17 @@ public class CommandHandler implements CommandExecutor, TabCompleter
 		
 		this.mainCommand = mainCommand;
 		this.f = f;
-
+		
 		mainCommand.init(f, "/", "");
-
+		
 		PluginCommand command = plugin.getCommand(mainCommand.getName());
-
+		
 		//TODO: custom?
 		command.setPermissionMessage(ChatColor.RED + "You do not have permission to use this command.");
 		command.setPermission(mainCommand.getPermissions());
 		command.setExecutor(this);
 	}
-
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] arguments)
 	{
@@ -74,10 +74,10 @@ public class CommandHandler implements CommandExecutor, TabCompleter
 		{
 			f.e(sender, e.getMessage(), e.getArgs());
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] arguments)
 	{

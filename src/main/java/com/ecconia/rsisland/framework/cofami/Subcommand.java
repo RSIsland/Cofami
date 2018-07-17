@@ -24,12 +24,12 @@ public abstract class Subcommand
 	protected Feedback f;
 	protected String path;
 	protected String name;
-
+	
 	private String permission;
 	
 	private boolean onlyConsole;
 	private boolean onlyPlayer;
-
+	
 	/**
 	 * 
 	 * @param name - The name/label of this command {@code /<name>}
@@ -40,12 +40,12 @@ public abstract class Subcommand
 		
 		this.name = name;
 	}
-
+	
 	public String getName()
 	{
 		return name;
 	}
-
+	
 	/**
 	 * Internal method.<br>
 	 * Permission string set for the main command<br>
@@ -82,9 +82,9 @@ public abstract class Subcommand
 	{
 		onlyConsole = true;
 	}
-
+	
 	//#########################################################################
-
+	
 	/**
 	 * Overwrite this method to remove/add permissions to this subcommand.<br>
 	 * 
@@ -125,35 +125,35 @@ public abstract class Subcommand
 			return sender.hasPermission(permission);
 		}
 	}
-
+	
 	/**
 	 * Gets called on execution of this command.
 	 * 
 	 * @param sender
 	 * @param arguments
 	 */
-
 	public abstract void exec(CommandSender sender, final String[] arguments);
+	
 	public List<String> onTabComplete(CommandSender sender, final String[] args)
 	{
 		return Collections.emptyList();
 	}
-
+	
 	//#########################################################################
-
+	
 	protected void init(Feedback f, String path, String permission)
 	{
 		this.f = f;
-
+		
 		this.path = path + name;
 		if(hasCallRequirements())
 		{
 			this.permission = permission + name;
 		}
 	}
-
+	
 	//#########################################################################
-
+	
 	protected Player getPlayer(CommandSender sender)
 	{
 		if(!(sender instanceof Player))
@@ -171,7 +171,7 @@ public abstract class Subcommand
 			throw new WrongTypeException();
 		}
 	}
-
+	
 	protected void checkPermission(CommandSender sender)
 	{
 		if(permission != null && !sender.hasPermission(permission))

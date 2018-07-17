@@ -22,24 +22,24 @@ import org.bukkit.command.CommandSender;
 public class GroupSubcommand extends Subcommand
 {
 	private final Map<String, Subcommand> subcommands;
-
+	
 	public GroupSubcommand(String name, Subcommand... subcommands)
 	{
 		super(name);
-
+		
 		this.subcommands = new HashMap<>();
 		for(Subcommand subcommand : subcommands)
 		{
 			this.subcommands.put(subcommand.getName(), subcommand);
 		}
 	}
-
+	
 	@Override
 	protected boolean hasCallRequirements()
 	{
 		return false;
 	}
-
+	
 	@Override
 	public String getPermissions()
 	{
@@ -56,12 +56,12 @@ public class GroupSubcommand extends Subcommand
 				permissions.add(subPermission);
 			}
 		}
-
+		
 		if(permissions.isEmpty())
 		{
 			return null;
 		}
-
+		
 		return StringUtils.join(permissions, ";");
 	}
 	
@@ -104,18 +104,18 @@ public class GroupSubcommand extends Subcommand
 			return false;
 		}
 	}
-
+	
 	@Override
 	protected void init(Feedback f, String path, String permission)
 	{
 		super.init(f, path, permission);
-
+		
 		for(Subcommand subcommmand : subcommands.values())
 		{
 			subcommmand.init(f, super.path + " ", permission + getName() + ".");
 		}
 	}
-
+	
 	@Override
 	public void exec(CommandSender sender, final String[] arguments)
 	{

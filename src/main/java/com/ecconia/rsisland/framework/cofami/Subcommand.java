@@ -100,18 +100,7 @@ public abstract class Subcommand
 	
 	protected boolean isType(CommandSender sender)
 	{
-		if(onlyConsole || onlyPlayer)
-		{
-			boolean isConsole = sender instanceof ConsoleCommandSender;
-			boolean isPlayer = sender instanceof Player;
-			
-			if((onlyConsole && onlyPlayer && !(isConsole || isPlayer)) || (onlyConsole && !isConsole) || (onlyPlayer && !isPlayer))
-			{
-				return false;
-			}
-		}
-		
-		return true;
+		return !((onlyConsole && !(sender instanceof ConsoleCommandSender)) || (onlyPlayer && !(sender instanceof Player)));
 	}
 	
 	protected boolean hasPermission(CommandSender sender)

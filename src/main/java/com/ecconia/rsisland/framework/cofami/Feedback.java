@@ -103,7 +103,13 @@ public class Feedback
 		
 		while(args.length >= i)
 		{
-			formatted += highlighColor + args[i++-1].toString() + color;
+			Object obj = args[i++-1];
+			if(obj == null)
+			{
+				obj = "'null'";
+			}
+			
+			formatted += highlighColor + obj.toString() + color;
 		}
 		
 		return prefix + color + formatted;

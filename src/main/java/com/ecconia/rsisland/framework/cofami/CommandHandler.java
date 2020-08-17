@@ -9,6 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ecconia.rsisland.framework.cofami.exceptions.CommandException;
@@ -34,6 +35,28 @@ public class CommandHandler implements CommandExecutor, TabCompleter
 	 * @param f - The formatting class {@link Feedback}.
 	 * @param mainCommand - The main {@link Subcommand}.
 	 */
+	public CommandHandler(Plugin plugin, Feedback f, Subcommand mainCommand)
+	{
+		Validate.notNull(mainCommand);
+		Validate.notNull(f);
+		Validate.notNull(plugin);
+		
+		this.mainCommand = mainCommand;
+		this.f = f;
+		
+		mainCommand.init(f, "/", "");
+		
+		init(plugin.getServer().getPluginCommand(mainCommand.getName()));
+	}
+	
+	/**
+	 * The CommandHandler connects the BukkitAPI with the Subcommand provided as parameter.
+	 * It also registers the command and sets its permissions.
+	 * 
+	 * @param plugin - The plugin, used to get the plugin command. 
+	 * @param f - The formatting class {@link Feedback}.
+	 * @param mainCommand - The main {@link Subcommand}.
+	 */
 	public CommandHandler(JavaPlugin plugin, Feedback f, Subcommand mainCommand)
 	{
 		Validate.notNull(mainCommand);
@@ -45,12 +68,16 @@ public class CommandHandler implements CommandExecutor, TabCompleter
 		
 		mainCommand.init(f, "/", "");
 		
-		PluginCommand command = plugin.getCommand(mainCommand.getName());
-		
+		init(plugin.getCommand(mainCommand.getName()));
+	}
+	
+	private void init(PluginCommand command)
+	{
 		//TODO: custom?
 		command.setPermissionMessage(ChatColor.RED + "You do not have permission to use this command.");
 		command.setPermission(mainCommand.getPermissions());
 		command.setExecutor(this);
+		command.setTabCompleter(this);
 	}
 	
 	@Override

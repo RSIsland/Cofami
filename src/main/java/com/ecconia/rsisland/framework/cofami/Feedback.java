@@ -17,6 +17,9 @@ public class Feedback
 	private ChatColor normalPrimary = ChatColor.GRAY;
 	private ChatColor normalSecondary = ChatColor.GOLD;
 	
+	private ChatColor warningPrimary = ChatColor.YELLOW;
+	private ChatColor warningSecondary = ChatColor.GRAY;
+	
 	private ChatColor errorPrimary = ChatColor.RED;
 	private ChatColor errorSecondary = ChatColor.DARK_PURPLE;
 	
@@ -49,6 +52,22 @@ public class Feedback
 	}
 	
 	/**
+	 * Send formatted warning message to CommandSender.
+	 * Warning messages - Color yellow, Highlight color gray.
+	 *
+	 * @param sender - Receiver of the message.
+	 * @param message - Message to be formatted.
+	 * @param args - Arguments, '%v' in the message will be replaced with these.
+	 */
+	public void w(CommandSender sender, String message, Object... args)
+	{
+		if(sender != null)
+		{
+			sender.sendMessage(e(message, args));
+		}
+	}
+	
+	/**
 	 * Send formatted error message to CommandSender.
 	 * Error messages - Color red, Highlight color violet.
 	 * 
@@ -70,10 +89,24 @@ public class Feedback
 	 * 
 	 * @param message - Message to be formatted.
 	 * @param args - Arguments, '%v' in the message will be replaced with these.
+	 * @return The formatted message.
 	 */
 	public String n(String message, Object... args)
 	{
 		return format(message, normalPrimary, normalSecondary, args);
+	}
+	
+	/**
+	 * Formats a warning message.
+	 * Warning messages - Color yellow, Highlight color gray.
+	 *
+	 * @param message - Message to be formatted.
+	 * @param args - Arguments, '%v' in the message will be replaced with these.
+	 * @return The formatted message.
+	 */
+	public String w(String message, Object... args)
+	{
+		return format(message, warningPrimary, warningSecondary, args);
 	}
 	
 	/**
@@ -82,20 +115,21 @@ public class Feedback
 	 * 
 	 * @param message - Message to be formatted.
 	 * @param args - Arguments, '%v' in the message will be replaced with these.
+	 * @return The formatted message.
 	 */
 	public String e(String message, Object... args)
 	{
 		return format(message, errorPrimary, errorSecondary, args);
 	}
 	
-	private String format(String message, ChatColor color, ChatColor highlighColor, Object... args)
+	private String format(String message, ChatColor color, ChatColor highlightColor, Object... args)
 	{
 		String parts[] = message.split("%v");
 
 		String formatted = parts[0];
 		for(int i = 1; i < parts.length; i++)
 		{
-			formatted += highlighColor + args[i-1].toString() + color;
+			formatted += highlightColor + args[i-1].toString() + color;
 			formatted += parts[i];
 		}
 		
@@ -109,7 +143,7 @@ public class Feedback
 				obj = "'null'";
 			}
 			
-			formatted += highlighColor + obj.toString() + color;
+			formatted += highlightColor + obj.toString() + color;
 		}
 		
 		return prefix + color + formatted;

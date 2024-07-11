@@ -118,8 +118,8 @@ public abstract class Subcommand
 	/**
 	 * Gets called on execution of this command.
 	 * 
-	 * @param sender
-	 * @param arguments
+	 * @param sender - The CommandSender executing this command.
+	 * @param arguments - The arguments used on this subcommand.
 	 */
 	public abstract void exec(CommandSender sender, final String[] arguments);
 	

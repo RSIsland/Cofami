@@ -3,7 +3,6 @@ package com.ecconia.rsisland.framework.cofami;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -36,8 +35,6 @@ public abstract class Subcommand
 	 */
 	public Subcommand(String name)
 	{
-		Validate.notNull(name);
-		
 		this.name = name;
 	}
 	

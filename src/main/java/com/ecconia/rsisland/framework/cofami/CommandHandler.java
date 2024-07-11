@@ -2,7 +2,6 @@ package com.ecconia.rsisland.framework.cofami;
 
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,10 +36,6 @@ public class CommandHandler implements CommandExecutor, TabCompleter
 	 */
 	public CommandHandler(Plugin plugin, Feedback f, Subcommand mainCommand)
 	{
-		Validate.notNull(mainCommand);
-		Validate.notNull(f);
-		Validate.notNull(plugin);
-		
 		this.mainCommand = mainCommand;
 		this.f = f;
 		
@@ -59,10 +54,6 @@ public class CommandHandler implements CommandExecutor, TabCompleter
 	 */
 	public CommandHandler(JavaPlugin plugin, Feedback f, Subcommand mainCommand)
 	{
-		Validate.notNull(mainCommand);
-		Validate.notNull(f);
-		Validate.notNull(plugin);
-		
 		this.mainCommand = mainCommand;
 		this.f = f;
 		

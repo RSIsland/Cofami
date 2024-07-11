@@ -2,8 +2,11 @@
 
 target/
 
-# Eclipse:
+# IDEs:
 
-.settings/
-.classpath
-.project
+/.settings/
+/.classpath
+/.project
+
+/.idea/
+/*.iml

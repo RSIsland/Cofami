@@ -1,6 +1,5 @@
 package com.ecconia.rsisland.framework.cofami;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -30,8 +29,6 @@ public class Feedback
 	 */
 	public Feedback(String prefix)
 	{
-		Validate.notNull(prefix);
-		
 		this.prefix = prefix;
 	}
 	

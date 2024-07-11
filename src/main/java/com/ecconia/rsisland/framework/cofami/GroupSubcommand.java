@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -62,7 +61,7 @@ public class GroupSubcommand extends Subcommand
 			return null;
 		}
 		
-		return StringUtils.join(permissions, ";");
+		return String.join(";", permissions);
 	}
 	
 	@Override
@@ -173,15 +172,13 @@ public class GroupSubcommand extends Subcommand
 	{
 		if(arguments.length == 1)
 		{
-			String typed = arguments[0];
+			String typed = arguments[0].toLowerCase();
 			
-			return subcommands.values().stream().filter(subcommand -> {
-				return subcommand.hasPermission(sender) && subcommand.isType(sender);
-			}).map(subcommand -> {
-				return subcommand.getName();
-			}).filter(subcommandName -> {
-				return StringUtils.startsWithIgnoreCase(subcommandName, typed);
-			}).collect(Collectors.toList());
+			return subcommands.values().stream()
+				.filter(subcommand -> subcommand.hasPermission(sender) && subcommand.isType(sender))
+				.map(Subcommand::getName)
+				.filter(subcommandName -> subcommandName.toLowerCase().startsWith(typed))
+				.collect(Collectors.toList());
 		}
 		
 		return Collections.emptyList();

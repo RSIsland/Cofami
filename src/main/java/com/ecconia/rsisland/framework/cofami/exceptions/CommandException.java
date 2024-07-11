@@ -1,6 +1,5 @@
 package com.ecconia.rsisland.framework.cofami.exceptions;
 
-@SuppressWarnings("serial")
 public class CommandException extends RuntimeException
 {
 	private Object[] args;
